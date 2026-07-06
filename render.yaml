@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: siyal-whatsapp
-    runtime: static
-    buildCommand: ""
-    staticPublishPath: .
-    pullRequestPreviewsEnabled: false
