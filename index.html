@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ht">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>SIYAL — WhatsApp Ban-Risk Check</title>
+<meta name="description" content="Tès otoevalyasyon gratis: reponn 8 kesyon epi jwenn siyal risk pou konnen si kont WhatsApp ou a ka bloke, ansanm ak konsèy pou ranfòse l.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SIYAL">
+<meta property="og:title" content="SIYAL — Tès Risk Ban WhatsApp">
+<meta property="og:description" content="Reponn 8 ti kesyon, jwenn siyal risk kont WhatsApp ou a ak konsèy pèsonalize pou ranfòse l. Pran anviwon 1 minit.">
+<meta property="og:image" content="https://siyal-whatsapp.onrender.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://siyal-whatsapp.onrender.com/">
+<meta property="og:locale" content="ht_HT">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SIYAL — Tès Risk Ban WhatsApp">
+<meta name="twitter:description" content="Reponn 8 ti kesyon, jwenn siyal risk kont WhatsApp ou a ak konsèy pèsonalize pou ranfòse l.">
+<meta name="twitter:image" content="https://siyal-whatsapp.onrender.com/og-image.png">
+
+<link rel="manifest" href="manifest.json">
+<!-- Plausible Analytics — chanje data-domain si domèn ou pa siyal-whatsapp.onrender.com, oswa src la si ou sou self-hosted -->
+<script defer data-domain="siyal-whatsapp.onrender.com" src="https://plausible.io/js/script.js"></script>
+<meta name="theme-color" content="#10131A">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SIYAL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#10131A;
+    --surface:#1A2029;
+    --surface-2:#222A36;
+    --line:rgba(255,255,255,0.09);
+    --text:#F1EFEA;
+    --muted:#8A90A2;
+    --safe:#3ECF8E;
+    --caution:#F2C46B;
+    --risk:#FF8A3D;
+    --danger:#FF5C5C;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(circle at 15% -10%, rgba(62,207,142,0.10), transparent 40%),
+      radial-gradient(circle at 85% 110%, rgba(255,92,92,0.08), transparent 40%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    display:flex;
+    justify-content:center;
+    padding:20px 16px 60px;
+  }
+  .shell{ width:100%; max-width:460px; }
+
+  .lang-switch{
+    display:flex; justify-content:flex-end; gap:6px; margin-bottom:18px;
+  }
+  .lang-btn{
+    appearance:none; cursor:pointer;
+    background:var(--surface); border:1px solid var(--line); color:var(--muted);
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.06em;
+    padding:7px 11px; border-radius:8px; transition:all .15s ease;
+  }
+  .lang-btn.active{ background:var(--text); color:#10131A; border-color:var(--text); }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    color:var(--muted);
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:30px;
+    line-height:1.15;
+    margin:0 0 14px;
+  }
+  .lede{ color:var(--muted); font-size:15px; line-height:1.55; margin-bottom:26px; }
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+  }
+
+  .signal-bars{ display:flex; align-items:flex-end; gap:5px; }
+  .signal-bars .bar{
+    width:9px;
+    background:var(--line);
+    border-radius:3px;
+    transition:background .5s ease, transform .5s ease;
+  }
+  .signal-bars .bar:nth-child(1){ height:10px; }
+  .signal-bars .bar:nth-child(2){ height:17px; }
+  .signal-bars .bar:nth-child(3){ height:24px; }
+  .signal-bars .bar:nth-child(4){ height:31px; }
+  .signal-bars .bar:nth-child(5){ height:38px; }
+  .signal-bars.big .bar:nth-child(1){ height:20px; }
+  .signal-bars.big .bar:nth-child(2){ height:34px; }
+  .signal-bars.big .bar:nth-child(3){ height:48px; }
+  .signal-bars.big .bar:nth-child(4){ height:62px; }
+  .signal-bars.big .bar:nth-child(5){ height:76px; }
+  .signal-bars.big .bar{ width:14px; border-radius:4px; }
+  .bar.lit-safe{ background:var(--safe); }
+  .bar.lit-caution{ background:var(--caution); }
+  .bar.lit-risk{ background:var(--risk); }
+  .bar.lit-danger{ background:var(--danger); }
+
+  #screen-intro .card{ display:flex; flex-direction:column; gap:22px; align-items:flex-start; }
+  .start-btn{
+    appearance:none; border:none; cursor:pointer;
+    background:var(--text); color:#10131A;
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:16px;
+    padding:16px 22px; border-radius:12px; width:100%;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  .start-btn:active{ transform:scale(0.98); opacity:0.9; }
+  .fine{ font-size:12.5px; color:var(--muted); line-height:1.5; }
+
+  #screen-quiz{ display:none; }
+  .progress-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; }
+  .progress-label{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted); letter-spacing:0.05em; }
+  .track{ height:3px; background:var(--line); border-radius:2px; margin-bottom:24px; overflow:hidden; }
+  .track-fill{ height:100%; background:var(--safe); border-radius:2px; transition:width .35s ease; }
+  .q-text{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:20px; line-height:1.35; margin-bottom:20px; }
+  .options{ display:flex; flex-direction:column; gap:10px; }
+  .opt{
+    text-align:left;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--text);
+    font-family:'Inter', sans-serif; font-size:14.5px; line-height:1.4;
+    padding:15px 16px; border-radius:12px; cursor:pointer;
+    transition:border-color .15s ease, transform .1s ease, background .15s ease;
+  }
+  .opt:active{ transform:scale(0.98); }
+  .opt:hover{ border-color:rgba(255,255,255,0.25); background:#28313F; }
+  .back-link{
+    margin-top:20px; background:none; border:none; color:var(--muted);
+    font-family:'Inter'; font-size:13px; cursor:pointer; padding:8px 0;
+  }
+
+  #screen-result{ display:none; }
+  .result-top{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:16px; padding:8px 4px 26px; }
+  .result-title{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:26px; }
+  .result-score{ font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--muted); }
+  .result-desc{ color:var(--muted); font-size:14.5px; line-height:1.55; max-width:360px; }
+  .section-label{
+    font-family:'IBM Plex Mono', monospace; font-size:11.5px; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--muted); margin:26px 0 12px;
+  }
+  .tip{
+    display:flex; gap:10px; align-items:flex-start;
+    background:var(--surface-2); border:1px solid var(--line);
+    border-radius:12px; padding:14px 15px; margin-bottom:10px; font-size:14px; line-height:1.5;
+  }
+  .tip .dot{ flex-shrink:0; margin-top:5px; width:7px; height:7px; border-radius:50%; }
+  .ok-msg{ color:var(--safe); font-size:14px; }
+  .restart-btn{
+    width:100%; margin-top:28px; padding:15px; border-radius:12px;
+    background:transparent; border:1px solid var(--line); color:var(--text);
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px; cursor:pointer;
+  }
+  footer{ text-align:center; color:var(--muted); font-size:11.5px; margin-top:30px; line-height:1.6; }
+
+  /* ---------- entry loader ---------- */
+  #loader{
+    position:fixed; inset:0; z-index:999;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:22px;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(62,207,142,0.08), transparent 55%),
+      var(--bg);
+    animation: loaderExit 2.6s ease forwards;
+  }
+  .loader-radar{ position:relative; width:120px; height:76px; display:flex; align-items:flex-end; justify-content:center; }
+  .ping-ring{
+    position:absolute; left:50%; bottom:0; width:14px; height:14px; border-radius:50%;
+    border:1px solid var(--safe); transform:translate(-50%, 0) scale(0.3);
+    opacity:0; animation:ping 1.6s ease-out infinite;
+  }
+  .ping-ring.d2{ animation-delay:0.8s; }
+  .loader-bars{ position:relative; display:flex; align-items:flex-end; gap:6px; z-index:1; }
+  .loader-bars .lbar{
+    width:11px; border-radius:3px; background:var(--line);
+    transform-origin:bottom; transform:scaleY(0);
+    animation:barSignal 0.9s cubic-bezier(.2,.9,.3,1.2) forwards;
+  }
+  .loader-bars .lbar:nth-child(1){ height:16px; animation-delay:0.05s; }
+  .loader-bars .lbar:nth-child(2){ height:28px; animation-delay:0.13s; }
+  .loader-bars .lbar:nth-child(3){ height:40px; animation-delay:0.21s; }
+  .loader-bars .lbar:nth-child(4){ height:52px; animation-delay:0.29s; }
+  .loader-bars .lbar:nth-child(5){ height:64px; animation-delay:0.37s; }
+  .loader-word{
+    font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:28px;
+    letter-spacing:0.35em; padding-left:0.35em; color:var(--text);
+    opacity:0; transform:translateY(8px);
+    animation:wordReveal 0.7s ease forwards; animation-delay:0.95s;
+  }
+  .loader-tag{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--muted);
+    letter-spacing:0.08em; opacity:0;
+    animation:wordReveal 0.6s ease forwards; animation-delay:1.3s;
+  }
+  @keyframes barSignal{
+    0%{ transform:scaleY(0); background:var(--line); }
+    55%{ transform:scaleY(1); background:var(--line); }
+    100%{ transform:scaleY(1); background:var(--safe); }
+  }
+  @keyframes ping{
+    0%{ transform:translate(-50%,0) scale(0.3); opacity:0.55; }
+    100%{ transform:translate(-50%,0) scale(6); opacity:0; }
+  }
+  @keyframes wordReveal{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes loaderExit{
+    0%, 76%{ opacity:1; transform:translateY(0); visibility:visible; }
+    100%{ opacity:0; transform:translateY(-18px); visibility:hidden; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #loader{ display:none !important; }
+  }
+
+  .install-btn{
+    display:none;
+    width:100%; margin-top:12px; padding:14px;
+    border-radius:12px; border:1px solid var(--line); background:var(--surface-2);
+    color:var(--text); font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:14.5px;
+    cursor:pointer; align-items:center; justify-content:center; gap:8px;
+  }
+  .install-btn svg{ flex-shrink:0; }
+  .ios-tip{
+    display:none; margin-top:12px; padding:14px 15px; border-radius:12px;
+    border:1px solid var(--line); background:var(--surface-2); color:var(--muted);
+    font-size:13px; line-height:1.5; align-items:flex-start; gap:10px;
+  }
+  .ios-tip svg{ flex-shrink:0; margin-top:1px; color:var(--text); }
+  .site-credit{
+    text-align:center; margin-top:34px; opacity:0.8;
+    font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:0.06em; color:var(--muted);
+  }
+  .site-credit strong{ color:var(--text); font-weight:600; letter-spacing:0.08em; }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-radar">
+    <div class="ping-ring"></div>
+    <div class="ping-ring d2"></div>
+    <div class="loader-bars">
+      <div class="lbar"></div><div class="lbar"></div><div class="lbar"></div><div class="lbar"></div><div class="lbar"></div>
+    </div>
+  </div>
+  <div class="loader-word">SIYAL</div>
+  <div class="loader-tag">K ap chèche siyal la…</div>
+</div>
+
+<div class="shell">
+
+  <div class="lang-switch">
+    <button class="lang-btn" data-lang="kr">KR</button>
+    <button class="lang-btn" data-lang="fr">FR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+
+  <!-- INTRO -->
+  <div id="screen-intro">
+    <div class="eyebrow" id="t-eyebrow"></div>
+    <h1 id="t-title"></h1>
+    <div class="signal-bars big" id="intro-bars" style="margin-bottom:6px;">
+      <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+    </div>
+    <p class="lede" id="t-lede"></p>
+    <div class="card">
+      <button class="start-btn" id="t-start-btn" onclick="startQuiz()"></button>
+      <button class="install-btn" id="install-btn"></button>
+      <div class="ios-tip" id="ios-tip">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+        <span id="t-ios-tip"></span>
+      </div>
+      <p class="fine" id="t-fine"></p>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="screen-quiz">
+    <div class="progress-row">
+      <span class="progress-label" id="progress-label"></span>
+      <div class="signal-bars" id="quiz-bars">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+    </div>
+    <div class="track"><div class="track-fill" id="track-fill" style="width:12.5%"></div></div>
+    <div class="card">
+      <div class="q-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+    </div>
+    <button class="back-link" id="back-btn" onclick="goBack()"></button>
+  </div>
+
+  <!-- RESULT -->
+  <div id="screen-result" role="status" aria-live="polite" aria-atomic="true">
+    <div class="result-top">
+      <div class="signal-bars big" id="result-bars">
+        <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
+      </div>
+      <div class="result-title" id="result-title"></div>
+      <div class="result-score" id="result-score"></div>
+      <div class="result-desc" id="result-desc"></div>
+    </div>
+
+    <div id="tips-block">
+      <div class="section-label" id="tips-label"></div>
+      <div id="tips-list"></div>
+    </div>
+
+    <button class="restart-btn" id="restart-btn" onclick="restart()"></button>
+    <footer id="t-footer"></footer>
+  </div>
+
+  <div class="site-credit">SIYAL · Fèt pa <strong>DOBERTO MR LIT TECH</strong></div>
+
+</div>
+
+<script>
+/* ---------- i18n ---------- */
+const STRINGS = {
+  kr: {
+    eyebrow: "Tès otoevalyasyon · 8 kesyon",
+    title: "Kont WhatsApp ou a — siyal fò oswa siyal fèb?",
+    lede: "Reponn 8 ti kesyon sou fason w itilize kont lan. N ap kalkile yon \"siyal risk\" ki montre si abitid ou yo ka mennen kont lan bloke — plis konsèy pèsonalize pou ranfòse l.",
+    startBtn: "Kòmanse tès la",
+    installBtn: "Enstale app la sou telefòn ou",
+    iosTip: "Pou enstale: peze bouton Pataje (Share) anba a, epi chwazi \"Add to Home Screen\".",
+    fine: "Pran anviwon 1 minit. Sa a se yon estimasyon baze sou pi bon pratik — li pa konekte ak WhatsApp/Meta e li pa gade kont ou an reyèlman.",
+    questionLabel: n => `KESYON ${n}/8`,
+    backLink: "← Retounen",
+    resultScore: p => `SCORE RISK: ${p}/100`,
+    titles: { safe:'SIYAL FÒ', caution:'SIYAL MWAYEN', risk:'SIYAL FÈB', danger:'SIYAL KRITIK' },
+    descs: {
+      safe: "Konpòtman kont ou an anfòm. Risk pou WhatsApp bloke w la fèb anpil kounye a.",
+      caution: "Gen kèk abitid ki ka ogmante risk la si w kontinye konsa. Fè kèk ti chanjman pou rete alèz.",
+      risk: "Plizyè konpòtman riskan detekte. WhatsApp ka limite oswa sispann kont lan si sa kontinye.",
+      danger: "Kont lan gen anpil chans pou l ban. Chanje konpòtman ou touswit pou pwoteje nimewo a."
+    },
+    tipsLabel: "Sa pou ou korije",
+    resultLabelOk: "Rezilta",
+    okMsg: "Pa gen gwo konpòtman riskan ki detekte. Kontinye konsa e evite chanjman brital nan volim mesaj ou.",
+    restartBtn: "Rekòmanse tès la",
+    footer: "SIYAL se yon zouti endepandan pou oto-evalyasyon. Li pa yon pwodwi ofisyèl WhatsApp/Meta."
+  },
+  fr: {
+    eyebrow: "Auto-évaluation · 8 questions",
+    title: "Votre compte WhatsApp — signal fort ou signal faible ?",
+    lede: "Répondez à 8 courtes questions sur votre façon d'utiliser le compte. Nous calculons un « signal de risque » qui montre si vos habitudes peuvent entraîner un blocage — avec des conseils personnalisés pour le renforcer.",
+    startBtn: "Commencer le test",
+    installBtn: "Installer l'app sur votre téléphone",
+    iosTip: "Pour installer : appuyez sur le bouton Partager en bas, puis choisissez « Sur l'écran d'accueil ».",
+    fine: "Environ 1 minute. Il s'agit d'une estimation basée sur les bonnes pratiques — cet outil n'est pas connecté à WhatsApp/Meta et ne consulte pas réellement votre compte.",
+    questionLabel: n => `QUESTION ${n}/8`,
+    backLink: "← Retour",
+    resultScore: p => `SCORE DE RISQUE : ${p}/100`,
+    titles: { safe:'SIGNAL FORT', caution:'SIGNAL MOYEN', risk:'SIGNAL FAIBLE', danger:'SIGNAL CRITIQUE' },
+    descs: {
+      safe: "Le comportement de votre compte est sain. Le risque de blocage par WhatsApp est très faible en ce moment.",
+      caution: "Certaines habitudes pourraient augmenter le risque si elles se poursuivent. Faites quelques ajustements pour rester tranquille.",
+      risk: "Plusieurs comportements à risque ont été détectés. WhatsApp pourrait limiter ou suspendre le compte si cela continue.",
+      danger: "Le compte a de fortes chances d'être banni. Changez immédiatement vos habitudes pour protéger le numéro."
+    },
+    tipsLabel: "À corriger",
+    resultLabelOk: "Résultat",
+    okMsg: "Aucun comportement à haut risque détecté. Continuez ainsi et évitez les changements brusques de volume de messages.",
+    restartBtn: "Recommencer le test",
+    footer: "SIYAL est un outil indépendant d'auto-évaluation. Ce n'est pas un produit officiel WhatsApp/Meta."
+  },
+  en: {
+    eyebrow: "Self-assessment · 8 questions",
+    title: "Your WhatsApp account — strong signal or weak signal?",
+    lede: "Answer 8 short questions about how you use the account. We calculate a \"risk signal\" showing whether your habits could get it banned — plus personalized tips to strengthen it.",
+    startBtn: "Start the test",
+    installBtn: "Install the app on your phone",
+    iosTip: "To install: tap the Share button below, then choose \"Add to Home Screen\".",
+    fine: "Takes about 1 minute. This is an estimate based on best practices — this tool isn't connected to WhatsApp/Meta and doesn't actually check your account.",
+    questionLabel: n => `QUESTION ${n}/8`,
+    backLink: "← Back",
+    resultScore: p => `RISK SCORE: ${p}/100`,
+    titles: { safe:'STRONG SIGNAL', caution:'MODERATE SIGNAL', risk:'WEAK SIGNAL', danger:'CRITICAL SIGNAL' },
+    descs: {
+      safe: "Your account's behavior is healthy. The risk of a WhatsApp ban is very low right now.",
+      caution: "A few habits could raise the risk if they continue. Make some small changes to stay safe.",
+      risk: "Several risky behaviors detected. WhatsApp may restrict or suspend the account if this continues.",
+      danger: "The account has a high chance of being banned. Change your behavior immediately to protect the number."
+    },
+    tipsLabel: "What to fix",
+    resultLabelOk: "Result",
+    okMsg: "No high-risk behavior detected. Keep it up, and avoid sudden jumps in message volume.",
+    restartBtn: "Restart the test",
+    footer: "SIYAL is an independent self-assessment tool. It is not an official WhatsApp/Meta product."
+  }
+};
+
+const QUESTIONS = [
+  {
+    text: {
+      kr: "Konbyen moun ou pa gen nan kontak ou (nimewo enkoni) ou voye mesaj ba yo chak jou?",
+      fr: "À combien de numéros inconnus (hors de vos contacts) envoyez-vous des messages chaque jour ?",
+      en: "How many unknown numbers (not in your contacts) do you message every day?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Mwens pase 5", fr:"Moins de 5", en:"Fewer than 5" } },
+      { pts:1, label:{ kr:"Ant 5 ak 20", fr:"Entre 5 et 20", en:"Between 5 and 20" } },
+      { pts:2, label:{ kr:"Ant 20 ak 100", fr:"Entre 20 et 100", en:"Between 20 and 100" } },
+      { pts:3, label:{ kr:"Plis pase 100", fr:"Plus de 100", en:"More than 100" } },
+    ],
+    tip: {
+      kr: "Diminye kantite mesaj ou voye bay nimewo ou pa konnen. WhatsApp gade sa tankou spam si se toujou menm kalite mesaj k ap pati an mas.",
+      fr: "Réduisez le nombre de messages envoyés à des numéros inconnus. WhatsApp considère cela comme du spam si ce sont toujours les mêmes messages envoyés en masse.",
+      en: "Reduce the number of messages you send to unknown numbers. WhatsApp treats this as spam if it's always the same kind of message going out in bulk."
+    }
+  },
+  {
+    text: {
+      kr: "Èske w ap itilize yon vèsyon modifye WhatsApp (GB WhatsApp, FM WhatsApp, YoWhatsApp, elatriye)?",
+      fr: "Utilisez-vous une version modifiée de WhatsApp (GB WhatsApp, FM WhatsApp, YoWhatsApp, etc.) ?",
+      en: "Are you using a modified version of WhatsApp (GB WhatsApp, FM WhatsApp, YoWhatsApp, etc.)?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Non, WhatsApp ofisyèl", fr:"Non, WhatsApp officiel", en:"No, official WhatsApp" } },
+      { pts:1, label:{ kr:"Wi, men mwen fè mizajou souvan", fr:"Oui, mais je mets à jour régulièrement", en:"Yes, but I update it regularly" } },
+      { pts:2, label:{ kr:"Wi, e mwen pa fè mizajou souvan", fr:"Oui, et je ne mets pas à jour souvent", en:"Yes, and I don't update it often" } },
+      { pts:3, label:{ kr:"Wi, e plizyè kont sou menm aparèy", fr:"Oui, avec plusieurs comptes sur le même appareil", en:"Yes, with multiple accounts on the same device" } },
+    ],
+    tip: {
+      kr: "Sispann itilize vèsyon modifye. Yo pa gen otorizasyon Meta, e kont ki itilize yo ka bloke san avètisman.",
+      fr: "Arrêtez d'utiliser les versions modifiées. Elles ne sont pas autorisées par Meta, et les comptes qui les utilisent peuvent être bloqués sans avertissement.",
+      en: "Stop using modified versions. They aren't authorized by Meta, and accounts using them can be banned without warning."
+    }
+  },
+  {
+    text: {
+      kr: "Èske gen yon bot oswa otomatizasyon (script, API pa ofisyèl) ki voye mesaj otomatikman soti nan kont sa a?",
+      fr: "Un bot ou un système automatisé (script, API non officielle) envoie-t-il des messages automatiquement depuis ce compte ?",
+      en: "Does a bot or automated system (script, unofficial API) send messages automatically from this account?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Non, se mwen menm ki voye tout", fr:"Non, j'envoie tout moi-même", en:"No, I send everything myself" } },
+      { pts:1, label:{ kr:"Wi, men volim fèb, repons rapid", fr:"Oui, mais faible volume, pour des réponses rapides", en:"Yes, but low volume, for quick replies" } },
+      { pts:2, label:{ kr:"Wi, volim mwayen pou pwomosyon", fr:"Oui, volume moyen pour des promotions", en:"Yes, medium volume for promotions" } },
+      { pts:3, label:{ kr:"Wi, gwo volim (santèn/mil chak jou)", fr:"Oui, gros volume (centaines/milliers par jour)", en:"Yes, high volume (hundreds/thousands per day)" } },
+    ],
+    tip: {
+      kr: "Si w ap otomatize anpil mesaj, pase sou API Business ofisyèl WhatsApp olye yon script san otorizasyon — sa diminye risk ban anpil.",
+      fr: "Si vous automatisez beaucoup de messages, passez à l'API Business officielle de WhatsApp plutôt qu'un script non autorisé — cela réduit fortement le risque de blocage.",
+      en: "If you're automating a lot of messages, switch to WhatsApp's official Business API instead of an unauthorized script — this greatly reduces ban risk."
+    }
+  },
+  {
+    text: {
+      kr: "Konbyen fwa moun te ka rapòte oswa bloke w pandan 30 dènye jou yo (estimasyon)?",
+      fr: "Combien de fois pensez-vous avoir été signalé ou bloqué par des utilisateurs au cours des 30 derniers jours (estimation) ?",
+      en: "How many times do you think you've been reported or blocked by users in the last 30 days (estimate)?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Zewo, mwen pa kwè gen moun", fr:"Zéro, je ne pense pas avoir été signalé", en:"Zero, I don't think so" } },
+      { pts:1, label:{ kr:"Petèt 1 oswa 2 fwa", fr:"Peut-être 1 ou 2 fois", en:"Maybe 1 or 2 times" } },
+      { pts:2, label:{ kr:"Plizyè fwa (3-10)", fr:"Plusieurs fois (3 à 10)", en:"Several times (3-10)" } },
+      { pts:3, label:{ kr:"Anpil fwa, oswa mwen resevwa avètisman", fr:"Souvent, ou j'ai reçu un avertissement de WhatsApp", en:"Often, or I received a warning from WhatsApp" } },
+    ],
+    tip: {
+      kr: "Chak rapò oswa blokaj ogmante 'score risk' kont ou lakay WhatsApp. Evite kontakte moun ki pa mande pou tande de ou.",
+      fr: "Chaque signalement ou blocage augmente le « score de risque » de votre compte chez WhatsApp. Évitez de contacter des personnes qui n'ont pas demandé à entendre parler de vous.",
+      en: "Every report or block raises your account's 'risk score' with WhatsApp. Avoid contacting people who haven't asked to hear from you."
+    }
+  },
+  {
+    text: {
+      kr: "Depi konbyen tan nimewo sa a ap itilize sou WhatsApp?",
+      fr: "Depuis combien de temps ce numéro est-il utilisé sur WhatsApp ?",
+      en: "How long has this number been used on WhatsApp?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Plis pase 2 an", fr:"Plus de 2 ans", en:"More than 2 years" } },
+      { pts:1, label:{ kr:"Ant 6 mwa ak 2 an", fr:"Entre 6 mois et 2 ans", en:"Between 6 months and 2 years" } },
+      { pts:2, label:{ kr:"Ant 1 mwa ak 6 mwa", fr:"Entre 1 et 6 mois", en:"Between 1 and 6 months" } },
+      { pts:3, label:{ kr:"Mwens pase 1 mwa / fenk chanje SIM", fr:"Moins d'1 mois / carte SIM récente", en:"Less than 1 month / recently switched SIM" } },
+    ],
+    tip: {
+      kr: "Yon nimewo tou nèf gen mwens 'konfyans' nan sistèm WhatsApp. Kòmanse dousman, pa voye anpil mesaj an mas nan premye semèn yo.",
+      fr: "Un numéro récent a moins de « confiance » auprès du système WhatsApp. Commencez doucement, sans envoyer beaucoup de messages en masse les premières semaines.",
+      en: "A brand-new number has less 'trust' in WhatsApp's system. Start slowly, and avoid sending a lot of bulk messages in the first few weeks."
+    }
+  },
+  {
+    text: {
+      kr: "Konbyen gwoup ki gen moun ou pa konnen ajoute w ladan, oswa ou menm ajoute moun enkoni ladan yo?",
+      fr: "À quelle fréquence des inconnus vous ajoutent-ils à des groupes, ou ajoutez-vous vous-même des inconnus à des groupes ?",
+      en: "How often do strangers add you to groups, or do you add unknown people to groups yourself?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Rezoud, mwen jere sa byen", fr:"Rarement, je gère bien cela", en:"Rarely, I manage this well" } },
+      { pts:1, label:{ kr:"Kèk fwa pa mwa", fr:"Quelques fois par mois", en:"A few times a month" } },
+      { pts:2, label:{ kr:"Chak semèn", fr:"Chaque semaine", en:"Every week" } },
+      { pts:3, label:{ kr:"Chak jou, anpil gwoup", fr:"Chaque jour, beaucoup de groupes", en:"Every day, lots of groups" } },
+    ],
+    tip: {
+      kr: "Evite ajoute moun san yo pa dakò nan gwoup, e kite gwoup kote w pa konnen manm yo — sa ka jenere anpil rapò.",
+      fr: "Évitez d'ajouter des personnes sans leur accord dans des groupes, et quittez les groupes dont vous ne connaissez pas les membres — cela peut générer beaucoup de signalements.",
+      en: "Avoid adding people to groups without their consent, and leave groups where you don't know the members — this can generate a lot of reports."
+    }
+  },
+  {
+    text: {
+      kr: "Èske w konn voye menm mesaj la (kopye-kole) bay anpil moun oswa gwoup nan menm moman an?",
+      fr: "Envoyez-vous le même message (copié-collé) à de nombreuses personnes ou groupes en même temps ?",
+      en: "Do you send the same message (copy-paste) to many people or groups at the same time?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Non, janm", fr:"Non, jamais", en:"No, never" } },
+      { pts:1, label:{ kr:"Raman, pou fanmi/zanmi sèlman", fr:"Rarement, pour la famille/les amis seulement", en:"Rarely, for family/friends only" } },
+      { pts:2, label:{ kr:"Souvan, pou biznis", fr:"Souvent, pour le travail", en:"Often, for business" } },
+      { pts:3, label:{ kr:"Toutan, se konsa m fè maketing", fr:"Tout le temps, c'est ainsi que je fais mon marketing", en:"All the time, that's how I do marketing" } },
+    ],
+    tip: {
+      kr: "Varye kontni mesaj ou e evite voye menm tèks la an mas; itilize lis difizyon ak moun ki deja gen ou nan kontak yo sèlman.",
+      fr: "Variez le contenu de vos messages et évitez d'envoyer le même texte en masse ; utilisez les listes de diffusion uniquement avec des personnes qui vous ont déjà en contact.",
+      en: "Vary your message content and avoid sending the same text in bulk; use broadcast lists only with people who already have you saved as a contact."
+    }
+  },
+  {
+    text: {
+      kr: "Èske moun ki resevwa mesaj ou yo konnen w anvan, oswa se etranje pou yo?",
+      fr: "Les personnes qui reçoivent vos messages vous connaissent-elles déjà, ou sont-elles des inconnus pour elles ?",
+      en: "Do the people receiving your messages already know you, or are you a stranger to them?"
+    },
+    options: [
+      { pts:0, label:{ kr:"Yo tout se fanmi ak zanmi", fr:"Ce sont tous des proches et amis", en:"They're all family and friends" } },
+      { pts:1, label:{ kr:"Pifò se moun ki konnen m", fr:"La plupart me connaissent", en:"Most of them know me" } },
+      { pts:2, label:{ kr:"Mwatye mwatye", fr:"Moitié-moitié", en:"About half and half" } },
+      { pts:3, label:{ kr:"Pifò se etranje, moun mwen pa janm pale avè yo", fr:"La plupart sont des inconnus, des gens à qui je n'ai jamais parlé", en:"Most are strangers, people I've never spoken to" } },
+    ],
+    tip: {
+      kr: "Prefere kontakte moun ki gen ou kòm kontak deja; mesaj bay moun ki pa gen ou nan repètwa yo se yon gwo drapo wouj pou WhatsApp.",
+      fr: "Privilégiez les personnes qui vous ont déjà enregistré comme contact ; envoyer des messages à des personnes qui ne vous ont pas dans leur répertoire est un signal d'alarme important pour WhatsApp.",
+      en: "Prioritize people who already have you saved as a contact; messaging people who don't have you in their address book is a major red flag for WhatsApp."
+    }
+  },
+];
+
+/* ---------- state ---------- */
+let currentLang = 'kr';
+let current = 0;
+let answers = []; // { qIndex, pts }
+let activeScreen = 'intro'; // intro | quiz | result
+
+const HTML_LANG_MAP = { kr: 'ht', fr: 'fr', en: 'en' };
+
+function setLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = HTML_LANG_MAP[lang] || 'ht';
+  if(window.plausible) window.plausible('Language', { props: { language: lang } });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  renderIntro();
+  if(activeScreen === 'quiz') renderQuestion();
+  if(activeScreen === 'result') renderResults();
+}
+
+const INSTALL_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>';
+
+function renderIntro(){
+  const s = STRINGS[currentLang];
+  document.getElementById('t-eyebrow').textContent = s.eyebrow;
+  document.getElementById('t-title').textContent = s.title;
+  document.getElementById('t-lede').textContent = s.lede;
+  document.getElementById('t-start-btn').textContent = s.startBtn;
+  document.getElementById('install-btn').innerHTML = INSTALL_ICON + '<span>' + s.installBtn + '</span>';
+  document.getElementById('t-ios-tip').textContent = s.iosTip;
+  document.getElementById('t-fine').textContent = s.fine;
+}
+
+function startQuiz(){
+  current = 0; answers = [];
+  activeScreen = 'quiz';
+  document.getElementById('screen-intro').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const s = STRINGS[currentLang];
+  const q = QUESTIONS[current];
+  document.getElementById('progress-label').textContent = s.questionLabel(current+1);
+  document.getElementById('track-fill').style.width = `${((current)/8)*100 + 12.5}%`;
+  document.getElementById('q-text').textContent = q.text[currentLang];
+  document.getElementById('back-btn').textContent = s.backLink;
+  document.getElementById('back-btn').style.visibility = current === 0 ? 'hidden' : 'visible';
+
+  const optsEl = document.getElementById('q-options');
+  optsEl.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = opt.label[currentLang];
+    btn.onclick = () => selectOption(opt.pts);
+    optsEl.appendChild(btn);
+  });
+
+  paintProgressBars(document.getElementById('quiz-bars'), current, 8);
+}
+
+function paintProgressBars(container, doneCount, total){
+  const bars = container.querySelectorAll('.bar');
+  const litCount = Math.round((doneCount/total) * 5);
+  bars.forEach((b, i) => {
+    b.className = 'bar' + (i < litCount ? ' lit-safe' : '');
+  });
+}
+
+function selectOption(pts){
+  answers[current] = { qIndex: current, pts };
+  current++;
+  if(current < QUESTIONS.length){
+    renderQuestion();
+  } else {
+    activeScreen = 'result';
+    document.getElementById('screen-quiz').style.display = 'none';
+    document.getElementById('screen-result').style.display = 'block';
+    renderResults();
+    if(window.plausible){
+      const total = answers.reduce((sum,a) => sum + a.pts, 0);
+      window.plausible('Quiz Completed', { props: { language: currentLang, risk: riskClass(Math.round((total/24)*100)) } });
+    }
+  }
+}
+
+function goBack(){
+  if(current === 0) return;
+  current--;
+  renderQuestion();
+}
+
+function riskClass(percent){
+  if(percent <= 25) return 'safe';
+  if(percent <= 50) return 'caution';
+  if(percent <= 75) return 'risk';
+  return 'danger';
+}
+
+function renderResults(){
+  const s = STRINGS[currentLang];
+  const total = answers.reduce((sum,a) => sum + a.pts, 0);
+  const percent = Math.round((total / 24) * 100);
+  const cls = riskClass(percent);
+
+  document.getElementById('result-title').textContent = s.titles[cls];
+  document.getElementById('result-title').style.color = `var(--${cls})`;
+  document.getElementById('result-score').textContent = s.resultScore(percent);
+  document.getElementById('result-desc').textContent = s.descs[cls];
+  document.getElementById('restart-btn').textContent = s.restartBtn;
+  document.getElementById('t-footer').textContent = s.footer;
+
+  const litBars = Math.max(1, 5 - Math.floor(percent/20));
+  const bars = document.querySelectorAll('#result-bars .bar');
+  bars.forEach((b,i) => {
+    b.className = 'bar' + (i < litBars ? ` lit-${cls}` : '');
+  });
+
+  const flagged = answers.filter(a => a.pts >= 2);
+  const tipsList = document.getElementById('tips-list');
+  const tipsLabelEl = document.getElementById('tips-label');
+  tipsList.innerHTML = '';
+
+  if(flagged.length === 0){
+    tipsLabelEl.textContent = s.resultLabelOk;
+    const p = document.createElement('p');
+    p.className = 'ok-msg';
+    p.textContent = s.okMsg;
+    tipsList.appendChild(p);
+  } else {
+    tipsLabelEl.textContent = s.tipsLabel;
+    const seenIdx = new Set();
+    flagged.forEach(a => {
+      if(seenIdx.has(a.qIndex)) return;
+      seenIdx.add(a.qIndex);
+      const div = document.createElement('div');
+      div.className = 'tip';
+      div.innerHTML = `<span class="dot" style="background:var(--${cls})"></span><span>${QUESTIONS[a.qIndex].tip[currentLang]}</span>`;
+      tipsList.appendChild(div);
+    });
+  }
+}
+
+function restart(){
+  activeScreen = 'intro';
+  document.getElementById('screen-result').style.display = 'none';
+  document.getElementById('screen-intro').style.display = 'block';
+}
+
+document.querySelectorAll('.lang-btn').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+setLang('kr');
+
+const loaderEl = document.getElementById('loader');
+if(loaderEl){
+  loaderEl.addEventListener('animationend', () => loaderEl.remove());
+}
+
+/* ---------- PWA: install prompt + service worker ---------- */
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById('install-btn');
+const iosTipEl = document.getElementById('ios-tip');
+
+function isIOS(){
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+}
+function isStandalone(){
+  return window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+}
+
+// beforeinstallprompt pa janm deklanche sou Safari/iOS — montre enstriksyon manyèl pou "Add to Home Screen" olye
+if(isIOS() && !isStandalone()){
+  iosTipEl.style.display = 'flex';
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredInstallPrompt = e;
+  installBtn.style.display = 'flex';
+});
+
+installBtn.addEventListener('click', async () => {
+  if(!deferredInstallPrompt) return;
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+  deferredInstallPrompt = null;
+  installBtn.style.display = 'none';
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+});
+
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
